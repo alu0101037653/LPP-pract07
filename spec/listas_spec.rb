@@ -1,14 +1,28 @@
 require "spec_helper"
-require 'lib/listas'
 
-describe Etiqueta do
+RSpec.describe Etiqueta do
 	before :each do
 		@chocolatina_tirma = Etiqueta.new("Chocolatina tirma",2132,27,14,61,50,4.5,0.51)
 		@chips_ahoy = Etiqueta.new("Chips ahoy",2108,24,13,64,31,5.8,1.04)
 		@papas_lays = Etiqueta.new("Papas Lays",2252,35.1,4.6,47.7,0.6,6.3,1.3)
 		@turron_yema = Etiqueta.new("Turron de yema",1879,23,3.2,50,50,9.1,0.05)
 		@oreo = Etiqueta.new("Oreo",2057,21,10,69,39,4.8,0.83)
+		@n1 = Node.new(@chocolatina_tirma,nil,nil)
+		@n2 = Node.new(@chips_ahoy,nil,nil)
+		@n3 = Node.new(@papas_lays,nil,nil)
+		@n4 = Node.new(@turron_yema,nil,nil)
+		@n5 = Node.new(@oreo,nil,nil)
 
+		@n1_prueba = Node.new(@chocolatina_tirma,nil,nil)
+		@n2_prueba = Node.new(@chips_ahoy,nil,nil)
+		@l = List.new()
+		@l1 = List.new()
+
+		@l.push_start(@n1_prueba)
+		@l.push_start(@n2_prueba)
+		#@l.push_start(@n3)
+		#@l.push_start(@n4)
+		#@l.push_start(@n5)
 	end
 
 	describe "Alimentos" do
@@ -75,5 +89,79 @@ describe Etiqueta do
 			expect(@turron_yema.sal).to eq(0.05)
 			expect(@oreo.sal).to eq(0.83)
 		end
+	end
+
+	describe "Node" do
+		it "Debe existir un nodo de la lista con sus datos y su siguiente" do
+			expect(@n1_prueba.next).to eq nil
+			expect(@n1_prueba.prev).not_to eq nil
+
+		#	expect(@n2.next).not_to eq nil
+		#	expect(@n2.prev).not_to eq nil
+
+		#	expect(@n3.next).not_to eq nil
+		#	expect(@n3.prev).not_to eq nil
+			
+		#	expect(@n4.next).not_to eq nil
+		#	expect(@n4.prev).not_to eq nil
+
+			expect(@n2_prueba.next).not_to eq nil
+			expect(@n2_prueba.prev).to eq nil
+		end
+	end
+
+	describe "List" do
+
+		it "Se puede insertar un elemento por el Head" do
+			expect(@l1.get_size()).to eq (0)
+			@l1.push_start(@n1)
+			expect(@l1.get_size()).to eq (1)
+		end
+
+		it "Se puede insertar un elemento por el Tail" do
+			expect(@l1.get_size()).to eq(0)
+			@l1.push_start(@n1)
+			expect(@l1.get_size()).to eq (1)
+		end
+
+		it "Se pueden insertar varios elementos" do
+			@l1.push_start(@n2)
+			@l1.push_start(@n3)
+			@l1.push_start(@n4)
+			@l1.push_start(@n5)
+			expect(@l1.get_size()).to eq(4)
+		end
+
+		it "Se puede extraer el primer elemento de la lista" do
+			expect(@l.Size).to eq(2)
+			@aux = @l.pop_start()
+			expect(@l.Size).to eq(1)
+			expect(@aux).to eq(@n2_prueba)
+		end
+
+		it "Se puede extraer el ultimo elemento de la lista" do
+			@l.push_start(@n2_prueba)
+			expect(@l.Size).to eq(3)
+			@aux = @l.pop_end()
+			expect(@l.Size).to eq(2)
+			expect(@aux).to eq(@n1_prueba)
+		end
+
+		it "Debe existir una lista con su Head" do
+			expect(@l.Head).not_to eq nil
+		end
+
+		it "Debe existir una lista con su Tail" do
+			expect(@l.Tail).not_to eq nil
+		end
+
+		it "Clasificacion de las etiquetas segun los gramos de sal" do
+			expect((@chocolatina_tirma).sal < 6).to eq(true)
+			expect((@chips_ahoy).sal < 6).to eq(true)
+			expect((@papas_lays).sal < 6).to eq(true)
+			expect((@turron_yema).sal < 6).to eq(true)
+			expect((@oreo).sal < 6).to eq(true)
+		end
+
 	end
 end
