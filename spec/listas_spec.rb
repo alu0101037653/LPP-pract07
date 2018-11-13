@@ -7,6 +7,7 @@ RSpec.describe Etiqueta do
 		@papas_lays = Etiqueta.new("Papas Lays",2252,35.1,4.6,47.7,0.6,6.3,1.3)
 		@turron_yema = Etiqueta.new("Turron de yema",1879,23,3.2,50,50,9.1,0.05)
 		@oreo = Etiqueta.new("Oreo",2057,21,10,69,39,4.8,0.83)
+
 		@n1 = Node.new(@chocolatina_tirma,nil,nil)
 		@n2 = Node.new(@chips_ahoy,nil,nil)
 		@n3 = Node.new(@papas_lays,nil,nil)
@@ -20,9 +21,6 @@ RSpec.describe Etiqueta do
 
 		@l.push_start(@n1_prueba)
 		@l.push_start(@n2_prueba)
-		#@l.push_start(@n3)
-		#@l.push_start(@n4)
-		#@l.push_start(@n5)
 	end
 
 	describe "Alimentos" do
@@ -95,15 +93,6 @@ RSpec.describe Etiqueta do
 		it "Debe existir un nodo de la lista con sus datos y su siguiente" do
 			expect(@n1_prueba.next).to eq nil
 			expect(@n1_prueba.prev).not_to eq nil
-
-		#	expect(@n2.next).not_to eq nil
-		#	expect(@n2.prev).not_to eq nil
-
-		#	expect(@n3.next).not_to eq nil
-		#	expect(@n3.prev).not_to eq nil
-			
-		#	expect(@n4.next).not_to eq nil
-		#	expect(@n4.prev).not_to eq nil
 
 			expect(@n2_prueba.next).not_to eq nil
 			expect(@n2_prueba.prev).to eq nil
